@@ -1,8 +1,8 @@
-name: Sapi Demo
+name: Statistics API demo
 type: module
-description: Demo for statistics API module
+description: Demo for Statistics API module
 core: 8.x
-package: statistics
+package: Statistics
 dependencies:
   - sapi
   - sapi_data
