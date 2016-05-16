@@ -1,0 +1,32 @@
+uuid: c76667ed-66f6-4428-8431-1d28fec5655a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.demo_article.body
+    - field.field.node.demo_article.field_colors
+    - node.type.demo_article
+  module:
+    - text
+    - user
+id: node.demo_article.default
+targetEntityType: node
+bundle: demo_article
+mode: default
+content:
+  body:
+    label: hidden
+    type: text_default
+    weight: 101
+    settings: {  }
+    third_party_settings: {  }
+  field_colors:
+    weight: 102
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+  links:
+    weight: 100
+hidden: {  }

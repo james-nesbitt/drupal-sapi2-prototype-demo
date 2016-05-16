@@ -1,0 +1,5 @@
+name: Sapi Demo
+type: module
+description: Demo for statistics API module
+core: 8.x
+package: statistics

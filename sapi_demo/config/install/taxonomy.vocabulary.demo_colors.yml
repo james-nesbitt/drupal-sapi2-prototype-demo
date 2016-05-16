@@ -1,0 +1,9 @@
+uuid: 9788982d-f5ce-40fb-bccd-05b1a290bb75
+langcode: en
+status: true
+dependencies: {  }
+name: Colors
+vid: demo_colors
+description: ''
+hierarchy: 0
+weight: 0
