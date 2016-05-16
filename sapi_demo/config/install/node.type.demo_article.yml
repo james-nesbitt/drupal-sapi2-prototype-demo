@@ -8,9 +8,9 @@ third_party_settings:
     available_menus:
       - main
     parent: 'main:'
-name: Article
+name: Article (demo)
 type: demo_article
-description: ''
+description: 'A content type to demo the functionality of "sapi_demo" module.'
 help: ''
 new_revision: false
 preview_mode: 1
