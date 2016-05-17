@@ -4,7 +4,6 @@ dependencies:
   config:
     - field.storage.node.field_colors
     - node.type.demo_article
-    - taxonomy.vocabulary.demo_colors
 id: node.demo_article.field_colors
 field_name: field_colors
 entity_type: node
