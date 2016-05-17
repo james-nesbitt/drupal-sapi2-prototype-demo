@@ -8,11 +8,11 @@ use Drupal\sapi\StatisticsItemInterface;
 
 /**
  * @StatisticsPlugin(
- *  id = "article_colour_tracker",
+ *  id = "article_color_tracker",
  *  label = "Track article colour views"
  * )
  */
-class ArticleColourTracker extends StatisticsPluginBase implements StatisticsPluginInterface {
+class ArticleColorTracker extends StatisticsPluginBase implements StatisticsPluginInterface {
 
   /**
    * EntityFieldQuery used to load the SAPI Data Items
@@ -51,9 +51,10 @@ class ArticleColourTracker extends StatisticsPluginBase implements StatisticsPlu
      *  retrieved using a \Drupal\Core\Entity\Query\QueryInterface
      */
     $results = $queryFactory->get('sapi_data')
-      ->condition('color', $color)
-      ->condition('user', $account)
-      ->condition('date', $date)
+      ->condition('type', 'color_frequency')
+      ->condition('field_color', $color)
+      ->condition('field_user', $account)
+//      ->condition('field_date', $date)
       ->execute();
 
     /** @var \Drupal\Core\Entity\EntityStorageInterface $entityStorageManager */
@@ -64,16 +65,21 @@ class ArticleColourTracker extends StatisticsPluginBase implements StatisticsPlu
     if (count($results)>0) {
       $entity_id = reset(array_keys($results));
       $sapiData = $entityStorageManager->load($entity_id);
-      $sapiData->set('frequency', $sapiData->get('frequency')+1);
+
+      $sapiData->field_frequency[0]->setValue(['value'=> $sapiData->field_frequency[0]->getValue()['value']+1]);
       $sapiData->save();
+
     }
     else {
+
       $entityStorageManager->create([
-        'color' => $color,
-        'user' => $account,
-        'date' => $date,
-        'frequency' => 1
+        'type' => 'color_frequency',
+        'field_color' => $color,
+        'field_user' => $account,
+        'field_date' => $date,
+        'field_frequency' => 1
       ])->save();
+
     }
 
   }
