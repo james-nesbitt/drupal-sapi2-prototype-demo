@@ -1,0 +1,8 @@
+<?php
+
+/**
+ * Implements hook_uninstall().
+ */
+function sapi_demo_uninstall() {
+  Drupal::configFactory()->getEditable('field.storage.node.field_colors')->delete();
+}
