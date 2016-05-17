@@ -1,0 +1,29 @@
+langcode: en
+status: true
+dependencies:
+  module:
+   - sapi_demo
+  config:
+    - field.storage.sapi_data.field_color
+    - sapi_data.sapi_data_type.color_frequency
+    - taxonomy.vocabulary.demo_colors
+id: sapi_data.color_frequency.field_color
+field_name: field_color
+entity_type: sapi_data
+bundle: color_frequency
+label: Color
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      demo_colors: demo_colors
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference
