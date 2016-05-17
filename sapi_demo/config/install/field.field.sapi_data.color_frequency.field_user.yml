@@ -1,0 +1,29 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - sapi_demo
+  config:
+    - field.storage.sapi_data.field_user
+    - sapi_data.sapi_data_type.color_frequency
+id: sapi_data.color_frequency.field_user
+field_name: field_user
+entity_type: sapi_data
+bundle: color_frequency
+label: User
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:user'
+  handler_settings:
+    include_anonymous: true
+    filter:
+      type: _none
+    target_bundles: null
+    sort:
+      field: _none
+    auto_create: false
+field_type: entity_reference

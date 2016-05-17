@@ -1,0 +1,62 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.sapi_data.color_frequency.field_color
+    - field.field.sapi_data.color_frequency.field_date
+    - field.field.sapi_data.color_frequency.field_frequency
+    - field.field.sapi_data.color_frequency.field_user
+    - sapi_data.sapi_data_type.color_frequency
+  module:
+    - datetime
+    - user
+    - sapi_demo
+id: sapi_data.color_frequency.default
+targetEntityType: sapi_data
+bundle: color_frequency
+mode: default
+content:
+  field_color:
+    weight: 6
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+  field_date:
+    weight: 8
+    label: above
+    settings:
+      format_type: medium
+      timezone_override: ''
+    third_party_settings: {  }
+    type: datetime_default
+  field_frequency:
+    weight: 5
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_integer
+  field_user:
+    weight: 7
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+  name:
+    label: above
+    type: string
+    weight: -4
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  user_id:
+    label: hidden
+    type: author
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }

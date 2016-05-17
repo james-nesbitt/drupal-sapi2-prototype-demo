@@ -1,0 +1,65 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.sapi_data.color_frequency.field_color
+    - field.field.sapi_data.color_frequency.field_date
+    - field.field.sapi_data.color_frequency.field_frequency
+    - field.field.sapi_data.color_frequency.field_user
+    - sapi_data.sapi_data_type.color_frequency
+  module:
+    - datetime
+    - sapi_demo
+id: sapi_data.color_frequency.default
+targetEntityType: sapi_data
+bundle: color_frequency
+mode: default
+content:
+  field_color:
+    weight: 16
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+  field_date:
+    weight: 18
+    settings: {  }
+    third_party_settings: {  }
+    type: datetime_default
+  field_frequency:
+    weight: 15
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+  field_user:
+    weight: 17
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+  langcode:
+    type: language_select
+    weight: 10
+    settings: {  }
+    third_party_settings: {  }
+  name:
+    type: string_textfield
+    weight: -4
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  user_id:
+    type: entity_reference_autocomplete
+    weight: 5
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden: {  }

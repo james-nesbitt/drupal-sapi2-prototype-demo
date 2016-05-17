@@ -1,0 +1,21 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.sapi_data.field_date
+    - sapi_data.sapi_data_type.color_frequency
+  module:
+    - datetime
+    - sapi_demo
+id: sapi_data.color_frequency.field_date
+field_name: field_date
+entity_type: sapi_data
+bundle: color_frequency
+label: Date
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime
