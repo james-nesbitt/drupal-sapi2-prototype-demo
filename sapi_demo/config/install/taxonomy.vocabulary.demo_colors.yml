@@ -2,11 +2,7 @@ langcode: en
 status: true
 dependencies:
   enforced:
-    module:
-      - sapi_demo
     config:
-      - field.field.node.demo_article.field_colors
-      - field.storage.node.field_colors
       - node.type.demo_article
 name: Colors (demo)
 vid: demo_colors
