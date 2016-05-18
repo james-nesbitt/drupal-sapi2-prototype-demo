@@ -49,6 +49,16 @@ class ArticleColorTracker extends StatisticsPluginBase implements StatisticsPlug
    */
   protected $currentUser;
 
+  /**
+   * ArticleColorTracker constructor.
+   *
+   * @param array $configuration
+   * @param string $plugin_id
+   * @param mixed $plugin_definition
+   * @param \Drupal\Core\Routing\RouteMatchInterface $routeMatch
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
+   * @param \Drupal\Core\Session\AccountProxyInterface $currentUser
+   */
   public function __construct(array $configuration, $plugin_id, $plugin_definition, RouteMatchInterface $routeMatch, EntityTypeManagerInterface $entityTypeManager, AccountProxyInterface $currentUser) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
 
@@ -57,6 +67,9 @@ class ArticleColorTracker extends StatisticsPluginBase implements StatisticsPlug
     $this->currentUser = $currentUser;
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
     return new static(
       $configuration,
