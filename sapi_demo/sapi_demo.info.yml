@@ -6,3 +6,7 @@ package: Statistics
 dependencies:
   - sapi
   - sapi_data
+  - node
+  - taxonomy
+  - field
+  - datetime
