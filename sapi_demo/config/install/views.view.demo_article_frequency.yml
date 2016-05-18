@@ -507,23 +507,13 @@ display:
       tags:
         - 'config:field.storage.node.field_colors'
         - 'config:field.storage.sapi_data.field_frequency'
-  page_1:
+  articles_colorfreq_asc_page:
     display_plugin: page
-    id: page_1
-    display_title: 'Filterable article nodes by color.'
-    position: 1
+    id: articles_colorfreq_asc_page
+    display_title: 'Demo Article viewed most'
+    position: 3
     display_options:
       display_extenders: {  }
-      path: demo-article-frequency
-      menu:
-        type: normal
-        title: 'Demo Article frequency'
-        description: 'Lists article nodes by color viewing frequency'
-        expanded: false
-        parent: ''
-        weight: 101
-        context: '0'
-        menu_name: tools
       display_description: ''
       sorts:
         field_frequency_value:
@@ -534,7 +524,7 @@ display:
           group_type: group
           admin_label: ''
           order: DESC
-          exposed: true
+          exposed: false
           expose:
             label: Frequency
           plugin_id: standard
@@ -555,8 +545,20 @@ display:
           plugin_id: date
       defaults:
         sorts: false
+        title: false
         filters: false
         filter_groups: false
+      path: demo-article-viewed-most
+      menu:
+        type: normal
+        title: 'Most viewed demo article'
+        description: ''
+        expanded: false
+        parent: ''
+        weight: 103
+        context: '0'
+        menu_name: tools
+      title: 'Most viewed demo article'
       filters:
         status:
           value: true
@@ -657,16 +659,14 @@ display:
         - 'languages:language_content'
         - 'languages:language_interface'
         - url
-        - 'url.query_args:sort_by'
-        - 'url.query_args:sort_order'
         - user
         - user.roles
       tags:
         - 'config:field.storage.node.field_colors'
         - 'config:field.storage.sapi_data.field_frequency'
-  page_2:
+  articles_colorfreq_desc_page:
     display_plugin: page
-    id: page_2
+    id: articles_colorfreq_desc_page
     display_title: 'Demo articles viewed least'
     position: 2
     display_options:
@@ -860,13 +860,23 @@ display:
       tags:
         - 'config:field.storage.node.field_colors'
         - 'config:field.storage.sapi_data.field_frequency'
-  page_3:
+  articles_colorfreq_filter_page:
     display_plugin: page
-    id: page_3
-    display_title: 'Demo Article viewed most'
-    position: 3
+    id: articles_colorfreq_filter_page
+    display_title: 'Filterable article nodes by color.'
+    position: 1
     display_options:
       display_extenders: {  }
+      path: demo-article-frequency
+      menu:
+        type: normal
+        title: 'Demo Article frequency'
+        description: 'Lists article nodes by color viewing frequency'
+        expanded: false
+        parent: ''
+        weight: 101
+        context: '0'
+        menu_name: tools
       display_description: ''
       sorts:
         field_frequency_value:
@@ -877,7 +887,7 @@ display:
           group_type: group
           admin_label: ''
           order: DESC
-          exposed: false
+          exposed: true
           expose:
             label: Frequency
           plugin_id: standard
@@ -898,20 +908,8 @@ display:
           plugin_id: date
       defaults:
         sorts: false
-        title: false
         filters: false
         filter_groups: false
-      path: demo-article-viewed-most
-      menu:
-        type: normal
-        title: 'Most viewed demo article'
-        description: ''
-        expanded: false
-        parent: ''
-        weight: 103
-        context: '0'
-        menu_name: tools
-      title: 'Most viewed demo article'
       filters:
         status:
           value: true
@@ -1012,14 +1010,16 @@ display:
         - 'languages:language_content'
         - 'languages:language_interface'
         - url
+        - 'url.query_args:sort_by'
+        - 'url.query_args:sort_order'
         - user
         - user.roles
       tags:
         - 'config:field.storage.node.field_colors'
         - 'config:field.storage.sapi_data.field_frequency'
-  page_4:
+  articles_colorfreq_none_page:
     display_plugin: page
-    id: page_4
+    id: articles_colorfreq_none_page
     display_title: 'Unseen demo articles'
     position: 4
     display_options:
