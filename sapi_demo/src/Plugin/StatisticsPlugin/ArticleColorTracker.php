@@ -37,6 +37,7 @@ class ArticleColorTracker extends StatisticsPluginBase implements StatisticsPlug
 
     /** @var \Drupal\Core\Routing\CurrentRouteMatch $route */
     $route = \Drupal::routeMatch();
+    // we will listen only to node canonical requests
     if ($route->getRouteName()!='entity.node.canonical') {
       return;
     }
@@ -61,7 +62,7 @@ class ArticleColorTracker extends StatisticsPluginBase implements StatisticsPlug
 
     /**
      * @var int $color
-     *   Term tid for the colour that we will track
+     *   term tid for the colour that we will track
      */
     $color = $currentNode->get('field_colors')[0]->getValue()['target_id'];
 
@@ -74,6 +75,8 @@ class ArticleColorTracker extends StatisticsPluginBase implements StatisticsPlug
     /**
      * @var int $date
      *  today's date, from a timestamp, but using only the day part.
+     *
+     * @see \Drupal\datetime\Plugin\Field\FieldType\DateTimeItem::generateSampleValue()
      */
     $date = gmdate(DATETIME_DATE_STORAGE_FORMAT, REQUEST_TIME);
 
