@@ -185,6 +185,7 @@ class ArticleColorTracker extends StatisticsPluginBase implements StatisticsPlug
       /** @var \Drupal\sapi_data\SAPIDataInterface $sapiData */
       $sapiData = $sapiDataStorage->create([
         'type' => 'color_frequency',
+        'name' => $this->currentUser->getAccountName().':'.$color.':'.$date,
         'field_color' => $color,
         'field_user' => $account,
         'field_date' => $date,
