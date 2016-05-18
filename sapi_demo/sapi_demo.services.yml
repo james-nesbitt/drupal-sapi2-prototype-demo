@@ -1,0 +1,6 @@
+services:
+  sapi_demo.request_view_subscriber:
+    class: Drupal\sapi_demo\EventSubscriber\RequestViewEventSubscriber
+    arguments: ['@sapi.dispatcher']
+    tags:
+      - { name: event_subscriber }
