@@ -87,18 +87,17 @@ class ArticleColorTracker extends StatisticsPluginBase implements StatisticsPlug
    */
   public function process(StatisticsItemInterface $item){
 
-    // We limit this action to only listening to one type of item action
-    if ($item->getAction() != 'controller_view') {
-      return;
-    }
-
-    // we will listen only to node canonical requests
-    if ($this->routeMatch->getRouteName()!='entity.node.canonical') {
-      return;
-    }
-
-    // we will not track anonymous user
-    if ($this->currentUser->isAnonymous()) {
+    /**
+     * Note we only track under the following circumstances:
+     *  - We limit this action to only listening to one type of item action
+     *  - we will listen only to node canonical requests
+     *  - we will not track anonymous user
+     */
+    if (
+        ($item->getAction() != 'controller_view')
+     || ($this->routeMatch->getRouteName()!='entity.node.canonical')
+     || $this->currentUser->isAnonymous()
+    ) {
       return;
     }
 
