@@ -7,23 +7,19 @@ use Drupal\sapi\Plugin\StatisticsPluginBase;
 use Drupal\sapi\StatisticsItemInterface;
 
 /**
+ * This is a SAPI handler plugin used to track node views, and to count
+ * colour frequencies for the user/date, by looking at the node->field_colours
+ * value.
+ *
  * @StatisticsPlugin(
  *  id = "article_color_tracker",
  *  label = "Track article colour views"
  * )
  *
- *
  * @TODO currently route-id, item-action, and colour-field-name and logger id
  *   are all hardcoded strings.  These should be replaced or configured.
  */
 class ArticleColorTracker extends StatisticsPluginBase implements StatisticsPluginInterface {
-
-  /**
-   * EntityFieldQuery used to load the SAPI Data Items
-   *
-   * @var \Drupal\Core\Entity\Query\QueryFactory
-   */
-  protected $entityFieldQuery;
 
   /**
    * {@inheritdoc}
