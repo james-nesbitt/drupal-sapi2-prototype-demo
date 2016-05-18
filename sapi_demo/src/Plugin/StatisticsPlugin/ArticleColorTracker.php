@@ -26,59 +26,99 @@ class ArticleColorTracker extends StatisticsPluginBase implements StatisticsPlug
    */
   public function process(StatisticsItemInterface $item){
 
+    /** @var \Drupal\Core\Routing\CurrentRouteMatch $route */
+    $route = \Drupal::routeMatch();
+    if ($route->getRouteName()!='entity.node.canonical') {
+      return;
+    }
+
+    /** @var \Drupal\Core\Session\AccountProxyInterface $currentUser */
+    $currentUser = \Drupal::currentUser();
+    // we will not track anonymous user
+    if ($currentUser->isAnonymous()) {
+      drupal_set_message("ANON USER");
+      return;
+    }
+
+    /** @var \Drupal\node\NodeInterface|null $currentNode */
+    $currentNode = $route->getParameter('node');
+    // parameter sanity check and color field check
+    if (
+        is_null($currentNode)
+     || !$currentNode->hasField('field_colours')
+    ) {
+      return;
+    }
+
     /**
      * @var int $color
      *   Term tid for the colour that we will track
      */
-    $color = 1;
+    $color = $currentNode->get('field_colors')[0]->getValue()['target_id'];
+
     /**
      * @var int $account
      *   the uid for the user that we will track
      */
-    $account = 1;
+    $account = $currentUser->id();
+
     /**
      * @var int $date
-     *  today's date, as a timestamp, but set to this morning.
+     *  today's date, from a timestamp, but using only the day part.
+     *
+     * @note this requires the datetime module, but does not enforce that.
      */
-    $date = REQUEST_TIME;
+    $date = gmdate(DATETIME_DATE_STORAGE_FORMAT, REQUEST_TIME);
 
 
-    /**  @var \Drupal\Core\Entity\Query\QueryFactory $queryFactory */
-    $queryFactory = \Drupal::service('entity.query');
+    drupal_set_message("TRACKING [date:$date][account:$account][color:$color]");
 
     /**
      * @var array $results
      *  retrieved using a \Drupal\Core\Entity\Query\QueryInterface
      */
-    $results = $queryFactory->get('sapi_data')
+    $results = \Drupal::entityQuery('sapi_data')
       ->condition('type', 'color_frequency')
       ->condition('field_color', $color)
       ->condition('field_user', $account)
-//      ->condition('field_date', $date)
+      ->condition('field_date', $date)
       ->execute();
 
-    /** @var \Drupal\Core\Entity\EntityStorageInterface $entityStorageManager */
-    $entityStorageManager = \Drupal::service('entity_type.manager')->getStorage('sapi_data');
-
-    /** @var \Drupal\sapi_data\SAPIDataInterface $sapiData */
-
     if (count($results)>0) {
-      $entity_id = reset(array_keys($results));
-      $sapiData = $entityStorageManager->load($entity_id);
+      $entity_id = array_keys($results)[0];
 
-      $sapiData->field_frequency[0]->setValue(['value'=> $sapiData->field_frequency[0]->getValue()['value']+1]);
-      $sapiData->save();
+      /** @var \Drupal\sapi_data\SAPIDataInterface $sapiData */
+      $sapiData = \Drupal
+        ::entityTypeManager()
+        ->getStorage('sapi_data')
+        ->load($entity_id);
+
+      /** @var \Drupal\Core\Field\FIeldItemInterface $fieldFrequency */
+      $fieldFrequency =& $sapiData->get('field_frequency')[0];
+      $fieldFrequency->setValue(['value'=> $fieldFrequency->getValue()['value']+1]);
+
+      if (!$sapiData->save()) {
+        \Drupal::logger('sapi')->warning('Could not update SAPI data');
+      }
 
     }
     else {
 
-      $entityStorageManager->create([
-        'type' => 'color_frequency',
-        'field_color' => $color,
-        'field_user' => $account,
-        'field_date' => $date,
-        'field_frequency' => 1
-      ])->save();
+      /** @var \Drupal\sapi_data\SAPIDataInterface $sapiData */
+      $sapiData = \Drupal
+        ::entityTypeManager()
+        ->getStorage('sapi_data')
+        ->create([
+            'type' => 'color_frequency',
+            'field_color' => $color,
+            'field_user' => $account,
+            'field_date' => $date,
+            'field_frequency' => 1
+          ]);
+
+      if (!$sapiData->save()) {
+        \Drupal::logger('sapi')->warning('Could not create SAPI data');
+      }
 
     }
 
