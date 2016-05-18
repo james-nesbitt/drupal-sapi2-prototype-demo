@@ -99,8 +99,7 @@ class ArticleColorTracker extends StatisticsPluginBase implements StatisticsPlug
       $entity_id = array_keys($results)[0];
 
       /** @var \Drupal\sapi_data\SAPIDataInterface $sapiData */
-      $sapiData = \Drupal
-        ::entityTypeManager()
+      $sapiData = \Drupal::entityTypeManager()
         ->getStorage('sapi_data')
         ->load($entity_id);
 
@@ -118,8 +117,7 @@ class ArticleColorTracker extends StatisticsPluginBase implements StatisticsPlug
       /** Creating a new tracking entity */
 
       /** @var \Drupal\sapi_data\SAPIDataInterface $sapiData */
-      $sapiData = \Drupal
-        ::entityTypeManager()
+      $sapiData = \Drupal::entityTypeManager()
         ->getStorage('sapi_data')
         ->create([
             'type' => 'color_frequency',
