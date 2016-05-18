@@ -48,7 +48,7 @@ class RequestViewEventSubscriber implements EventSubscriberInterface {
    */
   public function onRequestView(GetResponseForControllerResultEvent $event) {
     try {
-      $this->sapiDispatcher->dispatch(new StatisticsItem('request_view', ''));
+      $this->sapiDispatcher->dispatch(new StatisticsItem('controller_view', ''));
     } catch (\Exception $e) {
       watchdog_exception('sapi_demo', $e);
     }
