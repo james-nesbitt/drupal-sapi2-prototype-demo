@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\sapi_demo\Plugin\StatisticsPlugin;
+namespace Drupal\sapi_demo\Plugin\Statistics\ActionHandler;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
@@ -8,16 +8,18 @@ use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Session\AccountProxyInterface;
-use Drupal\sapi\Plugin\StatisticsPluginInterface;
-use Drupal\sapi\Plugin\StatisticsPluginBase;
-use Drupal\sapi\StatisticsItemInterface;
+use Drupal\node\NodeInterface;
+use Drupal\sapi\ActionHandlerInterface;
+use Drupal\sapi\ActionHandlerBase;
+use Drupal\sapi\ActionTypeInterface;
+use Drupal\sapi\Plugin\Statistics\ActionType\Tagged;
 
 /**
  * This is a SAPI handler plugin used to track node views, and to count
  * colour frequencies for the user/date, by looking at the node->field_colours
  * value.
  *
- * @StatisticsPlugin(
+ * @ActionHandler(
  *  id = "article_color_tracker",
  *  label = "Track article colour views"
  * )
@@ -25,7 +27,7 @@ use Drupal\sapi\StatisticsItemInterface;
  * @TODO currently route-id, item-action, and colour-field-name and logger id
  *   are all hardcoded strings.  These should be replaced or configured.
  */
-class ArticleColorTracker extends StatisticsPluginBase implements StatisticsPluginInterface, ContainerFactoryPluginInterface {
+class ArticleColorTracker extends ActionHandlerBase implements ActionHandlerInterface, ContainerFactoryPluginInterface {
 
   /**
    * Route match object as we only track on certain routes
@@ -85,7 +87,7 @@ class ArticleColorTracker extends StatisticsPluginBase implements StatisticsPlug
   /**
    * {@inheritdoc}
    */
-  public function process(StatisticsItemInterface $item){
+  public function process(ActionTypeInterface $action){
 
     /**
      * Note we only track under the following circumstances:
@@ -94,7 +96,7 @@ class ArticleColorTracker extends StatisticsPluginBase implements StatisticsPlug
      *  - we will not track anonymous user
      */
     if (
-        ($item->getAction() != 'controller_view')
+        !($action instanceof Tagged && $action->hasTag('sapi_demo_nodeview')) // this is the tag set by our controller
      || ($this->routeMatch->getRouteName()!='entity.node.canonical')
      || $this->currentUser->isAnonymous()
     ) {
@@ -106,7 +108,7 @@ class ArticleColorTracker extends StatisticsPluginBase implements StatisticsPlug
     // parameter sanity check and color field check
     if (
         is_null($currentNode)
-     || !($currentNode instanceof \Drupal\node\NodeInterface)
+     || !($currentNode instanceof NodeInterface)
      || !$currentNode->hasField('field_colors')
     ) {
       return;
