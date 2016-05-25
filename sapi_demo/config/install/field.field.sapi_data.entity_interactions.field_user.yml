@@ -1,0 +1,29 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.sapi_data.field_user
+    - sapi_data.sapi_data_type.entity_interactions
+  module:
+    - sapi_demo
+id: sapi_data.entity_interactions.field_user
+field_name: field_user
+entity_type: sapi_data
+bundle: entity_interactions
+label: User
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:user'
+  handler_settings:
+    include_anonymous: true
+    filter:
+      type: _none
+    target_bundles: null
+    sort:
+      field: _none
+    auto_create: false
+field_type: entity_reference
