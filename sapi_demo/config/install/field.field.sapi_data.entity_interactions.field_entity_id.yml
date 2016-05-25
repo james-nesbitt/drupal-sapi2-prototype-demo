@@ -1,0 +1,24 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.sapi_data.field_entity_id
+    - sapi_data.sapi_data_type.entity_interactions
+  module:
+    - sapi_demo
+id: sapi_data.entity_interactions.field_entity_id
+field_name: field_entity_id
+entity_type: sapi_data
+bundle: entity_interactions
+label: 'Entity ID'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer
