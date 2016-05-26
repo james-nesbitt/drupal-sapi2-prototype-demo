@@ -69,7 +69,7 @@ class EntityInteractionTracker extends ActionHandlerBase implements ActionHandle
 
     /**
      * @var string $entity_type
-     *   Label of Entity
+     *   Entity type ID
      */
     $entity_type = $action->getEntity()->getEntityTypeId();
 
