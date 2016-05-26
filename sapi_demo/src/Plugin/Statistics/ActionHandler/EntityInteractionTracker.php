@@ -86,10 +86,10 @@ class EntityInteractionTracker extends ActionHandlerBase implements ActionHandle
     $interaction_type = $action->getAction();
 
     /**
-     * @var string $account
+     * @var string $user_id
      *   UID of user who interacted to Entity
      */
-    $account = $action->getAccount()->id();
+    $user_id = $action->getAccount()->id();
 
     /**
      * @var EntityStorageInterface $sapiDataStorage
@@ -105,7 +105,7 @@ class EntityInteractionTracker extends ActionHandlerBase implements ActionHandle
       'field_entity_type' => $entity_type,
       'field_entity_id' => $entity_id,
       'field_interaction_type' => $interaction_type,
-      'field_user' => $account,
+      'field_user' => $user_id,
     ]);
 
     if (!$sapiData->save()) {
