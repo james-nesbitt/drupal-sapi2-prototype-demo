@@ -4,3 +4,9 @@ services:
     arguments: ['@sapi.dispatcher', '@plugin.manager.sapi_action_type']
     tags:
       - { name: event_subscriber }
+  sapi_demo.event_view_subscriber:
+    class: Drupal\sapi_demo\EventSubscriber\EventViewEntitySubscriber
+    arguments: ["@current_user", "@sapi.dispatcher", "@plugin.manager.sapi_action_type", "@current_route_match"]
+    tags:
+      - { name: event_subscriber }
+
