@@ -10,7 +10,6 @@ use Drupal\sapi\Dispatcher;
 use Drupal\Core\Routing\CurrentRouteMatch;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Drupal\sapi\ActionTypeInterface;
-
 use Drupal\Core\Entity;
 
 /**
@@ -74,13 +73,12 @@ class EntityViewEventSubscriber implements EventSubscriberInterface {
    * Informs Statistics API dispatcher when controller outputs a value which is
    * not a Response instance.
    *
-   * @param \Symfony\Component\HttpKernel\Event\GetResponseEvent $event
+   * @param \Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent $event
    */
   public function onEventView(Event $event) {
     try {
       /** @var $routeData[] An array of strings containing consecutive parts of route name. */
       $routeData = explode('.',$this->currentRouteMatch->getRouteName());
-
       if (in_array('canonical', $routeData)) {
         /** @var \Drupal\Core\Entity\EntityInterface $entity */
         $entity = $this->currentRouteMatch->getParameter($routeData[1]);
