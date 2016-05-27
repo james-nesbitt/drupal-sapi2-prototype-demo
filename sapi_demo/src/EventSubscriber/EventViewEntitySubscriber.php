@@ -71,8 +71,8 @@ class EventViewEntitySubscriber implements EventSubscriberInterface {
   }
 
   /**
-	 * Informs Statistics API dispatcher when controller outputs a value which is
-	 * not a Response instance.
+   * Informs Statistics API dispatcher when controller outputs a value which is
+   * not a Response instance.
    *
    * @param \Symfony\Component\HttpKernel\Event\GetResponseEvent $event
    */
@@ -80,11 +80,14 @@ class EventViewEntitySubscriber implements EventSubscriberInterface {
     try {
       /** @var $routeData[] An array of strings containing consecutive parts of route name. */
       $routeData = explode('.',$this->currentRouteMatch->getRouteName());
-      if (count($routeData) >= 3 && $routeData[0] == 'entity') {
+
+      if (in_array('canonical', $routeData)) {
         /** @var \Drupal\Core\Entity\EntityInterface $entity */
         $entity = $this->currentRouteMatch->getParameter($routeData[1]);
+        /** @var string $mode String containing Display mode. */
+        $mode = $event->getControllerResult()['#view_mode'];
         /** @var \Drupal\sapi\ActionTypeInterface $action */
-        $action = $this->sapiActionTypeManager->createInstance('entity_interaction', ['account'=> $this->currentUser,'entity'=> $entity,'action'=> $routeData[2],'mode'=>'full']);
+        $action = $this->sapiActionTypeManager->createInstance('entity_interaction', ['account'=> $this->currentUser,'entity'=> $entity,'action'=> 'View','mode'=> $mode]);
         if (!($action instanceof ActionTypeInterface)) {
           throw new \Exception('No entity_interaction plugin was found');
         }
