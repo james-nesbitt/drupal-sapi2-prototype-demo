@@ -9,6 +9,7 @@ use Drupal\sapi\Plugin\Statistics\ActionType\EntityInteraction;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
+use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 
 /**
  * This is a SAPI handler plugin used to track any entity interactions (view, update and create).
@@ -18,7 +19,7 @@ use Drupal\Core\Entity\EntityStorageInterface;
  *  label = "Track any entity interactions"
  * )
  */
-class EntityInteractionTracker extends ActionHandlerBase implements ActionHandlerInterface{
+class EntityInteractionTracker extends ActionHandlerBase implements ActionHandlerInterface, ContainerFactoryPluginInterface{
 
   /**
    * EntityTypeManager used to get entity storage for sapi_data items, which is
