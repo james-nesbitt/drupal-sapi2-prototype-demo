@@ -80,7 +80,7 @@ class EventViewEntitySubscriber implements EventSubscriberInterface {
     try {
       /** @var $routeData[] An array of strings containing consecutive parts of route name. */
       $routeData = explode('.',$this->currentRouteMatch->getRouteName());
-      if (count($routeData) >= 3) {
+      if (count($routeData) >= 3 && $routeData[0] == 'entity') {
         /** @var \Drupal\Core\Entity\EntityInterface $entity */
         $entity = $this->currentRouteMatch->getParameter($routeData[1]);
         /** @var \Drupal\sapi\ActionTypeInterface $action */
