@@ -14,11 +14,11 @@ use Drupal\sapi\ActionTypeInterface;
 use Drupal\Core\Entity;
 
 /**
- * Class EventViewEntitySubscriber.
+ * Class EntityViewEventSubscriber.
  *
  * @package Drupal\sapi_demo
  */
-class EventViewEntitySubscriber implements EventSubscriberInterface {
+class EntityViewEventSubscriber implements EventSubscriberInterface {
 
   /**
    * Drupal\Core\Session\AccountProxy definition.
