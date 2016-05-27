@@ -79,16 +79,16 @@ class EventViewEntitySubscriber implements EventSubscriberInterface {
   public function onEventView(Event $event) {
   try {
     $routeData = explode('.',$this->currentRouteMatch->getRouteName());
-		if ($routeData[2] == 'canonical'){
-			/** @var \Drupal\Core\Entity\EntityInterface $entity */
-			$entity = $this->currentRouteMatch->getParameter($routeData[1]);
-			/** @var \Drupal\sapi\ActionTypeInterface $action */
-			$action = $this->SAPIActionTypeManager->createInstance('entity_interaction', [ 'account'=> $this->currentUser,'entity'=> $entity,'action'=> 'View','mode'=>'full', ]);
-			if (!($action instanceof ActionTypeInterface)) {
-				throw new \Exception('No entity_interaction plugin was found');
-			}
-			$this->sapiDispatcher->dispatch($action);
-		}
+    if ($routeData[2] == 'canonical'){
+      /** @var \Drupal\Core\Entity\EntityInterface $entity */
+      $entity = $this->currentRouteMatch->getParameter($routeData[1]);
+      /** @var \Drupal\sapi\ActionTypeInterface $action */
+      $action = $this->SAPIActionTypeManager->createInstance('entity_interaction', [ 'account'=> $this->currentUser,'entity'=> $entity,'action'=> 'View','mode'=>'full', ]);
+      if (!($action instanceof ActionTypeInterface)) {
+        throw new \Exception('No entity_interaction plugin was found');
+      }
+      $this->sapiDispatcher->dispatch($action);
+    }
   } catch (\Exception $e) {
     watchdog_exception('sapi_demo', $e);
     }

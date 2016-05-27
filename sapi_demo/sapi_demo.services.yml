@@ -9,4 +9,3 @@ services:
     arguments: ["@current_user", "@sapi.dispatcher", "@plugin.manager.sapi_action_type", "@current_route_match"]
     tags:
       - { name: event_subscriber }
-
