@@ -38,9 +38,9 @@ class EventViewEntitySubscriber implements EventSubscriberInterface {
    * The statistics action type plugin manager which will be used to create sapi
    * items to be passed to the dispatcher
    *
-   * @var \Drupal\Component\Plugin\PluginManagerInterface $SAPIActionTypeManager
+   * @var \Drupal\Component\Plugin\PluginManagerInterface $sapiActionTypeManager
    */
-  protected $SAPIActionTypeManager;
+  protected $sapiActionTypeManager;
 
   /**
    * Drupal\Core\Routing\CurrentRouteMatch definition.
@@ -52,10 +52,10 @@ class EventViewEntitySubscriber implements EventSubscriberInterface {
   /**
    * Constructor.
    */
-  public function __construct(AccountProxy $currentUser, Dispatcher $sapiDispatcher, PluginManagerInterface $SAPIActionTypeManager, CurrentRouteMatch $currentRouteMatch) {
+  public function __construct(AccountProxy $currentUser, Dispatcher $sapiDispatcher, PluginManagerInterface $sapiActionTypeManager, CurrentRouteMatch $currentRouteMatch) {
     $this->currentUser = $currentUser;
     $this->sapiDispatcher = $sapiDispatcher;
-    $this->SAPIActionTypeManager = $SAPIActionTypeManager;
+    $this->sapiActionTypeManager = $sapiActionTypeManager;
     $this->currentRouteMatch = $currentRouteMatch;
   }
 
@@ -77,20 +77,21 @@ class EventViewEntitySubscriber implements EventSubscriberInterface {
    * @param \Symfony\Component\HttpKernel\Event\GetResponseEvent $event
    */
   public function onEventView(Event $event) {
-  try {
-    $routeData = explode('.',$this->currentRouteMatch->getRouteName());
-    if ($routeData[2] == 'canonical'){
-      /** @var \Drupal\Core\Entity\EntityInterface $entity */
-      $entity = $this->currentRouteMatch->getParameter($routeData[1]);
-      /** @var \Drupal\sapi\ActionTypeInterface $action */
-      $action = $this->SAPIActionTypeManager->createInstance('entity_interaction', [ 'account'=> $this->currentUser,'entity'=> $entity,'action'=> 'View','mode'=>'full', ]);
-      if (!($action instanceof ActionTypeInterface)) {
-        throw new \Exception('No entity_interaction plugin was found');
+    try {
+      /** @var $routeData[] An array of strings containing consecutive parts of route name. */
+      $routeData = explode('.',$this->currentRouteMatch->getRouteName());
+      if (count($routeData) >= 3) {
+        /** @var \Drupal\Core\Entity\EntityInterface $entity */
+        $entity = $this->currentRouteMatch->getParameter($routeData[1]);
+        /** @var \Drupal\sapi\ActionTypeInterface $action */
+        $action = $this->sapiActionTypeManager->createInstance('entity_interaction', ['account'=> $this->currentUser,'entity'=> $entity,'action'=> $routeData[2],'mode'=>'full']);
+        if (!($action instanceof ActionTypeInterface)) {
+          throw new \Exception('No entity_interaction plugin was found');
+        }
+        $this->sapiDispatcher->dispatch($action);
       }
-      $this->sapiDispatcher->dispatch($action);
-    }
-  } catch (\Exception $e) {
-    watchdog_exception('sapi_demo', $e);
+    } catch (\Exception $e) {
+      watchdog_exception('sapi_demo', $e);
     }
   }
 
