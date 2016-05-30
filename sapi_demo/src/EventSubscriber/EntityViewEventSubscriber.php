@@ -77,7 +77,7 @@ class EntityViewEventSubscriber implements EventSubscriberInterface {
    */
   public function onEventView(Event $event) {
     try {
-      if (preg_match('/entity\.(?:[A-Za-z\-]+)\.canonical/',$this->currentRouteMatch->getRouteName())) {
+      if (preg_match('/entity\.(?:[\w]+)\.canonical/',$this->currentRouteMatch->getRouteName())) {
         /** @var $routeData[] An array of strings containing consecutive parts of route name. */
         $routeData = explode('.',$this->currentRouteMatch->getRouteName());
         /** @var \Drupal\Core\Entity\EntityInterface $entity */
