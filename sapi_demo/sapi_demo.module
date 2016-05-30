@@ -13,39 +13,49 @@ use Drupal\Core\Entity;
  * @param \Drupal\Core\Entity\EntityInterface $entity
  */
 function sapi_demo_entity_update(EntityInterface $entity){
-  /** @var \Drupal\Component\Plugin\PluginManagerInterface $actionType */
-  $actionType = \Drupal::service('plugin.manager.sapi_action_type');
-  /** @var \Drupal\Core\Session\AccountProxy $currentUser */
-  $currentUser = \Drupal::service('current_user');
-  /** @var \Drupal\sapi\Dispatcher $sapiDispatcher */
-  $sapiDispatcher = \Drupal::service('sapi.dispatcher');
-  /** @var \Drupal\sapi\ActionTypeInterface $action */
-  $action = $actionType->createInstance('entity_interaction', ['account'=> $currentUser,'entity'=> $entity,'action'=> 'Update','mode'=> '']);
-  if (!($action instanceof ActionTypeInterface)) {
-    throw new \Exception('No entity_interaction plugin was found');
+  try {
+    /** @var \Drupal\Component\Plugin\PluginManagerInterface $actionType */
+    $actionType = \Drupal::service('plugin.manager.sapi_action_type');
+    /** @var \Drupal\Core\Session\AccountProxy $currentUser */
+    $currentUser = \Drupal::service('current_user');
+    /** @var \Drupal\sapi\Dispatcher $sapiDispatcher */
+    $sapiDispatcher = \Drupal::service('sapi.dispatcher');
+    /** @var \Drupal\sapi\ActionTypeInterface $action */
+    $action = $actionType->createInstance('entity_interaction', ['account'=> $currentUser,'entity'=> $entity,'action'=> 'Update','mode'=> '']);
+    if (!($action instanceof ActionTypeInterface)) {
+      throw new \Exception('No entity_interaction plugin was found');
+    }
+    $sapiDispatcher->dispatch($action);
+  } catch (\Exception $e) {
+    watchdog_exception('sapi_demo', $e);
   }
-  $sapiDispatcher->dispatch($action);
 }
 
 /**
  * Initiates Drupal\sapi\ActionType plugin and hands it to dispatcher
  * when entity is created.
  *
- * Implements hook_entity_create()
+ * Implements hook_entity_insert()
  *
  * @param \Drupal\Core\Entity\EntityInterface $entity
  */
-function sapi_demo_entity_create(EntityInterface $entity){
-  /** @var \Drupal\Component\Plugin\PluginManagerInterface $actionType */
-  $actionType = \Drupal::service('plugin.manager.sapi_action_type');
-  /** @var \Drupal\Core\Session\AccountProxy $currentUser */
-  $currentUser = \Drupal::service('current_user');
-  /** @var \Drupal\sapi\Dispatcher $sapiDispatcher */
-  $sapiDispatcher = \Drupal::service('sapi.dispatcher');
-  /** @var \Drupal\sapi\ActionTypeInterface $action */
-  $action = $actionType->createInstance('entity_interaction', ['account'=> $currentUser,'entity'=> $entity,'action'=> 'Create','mode'=> '']);
-  if (!($action instanceof ActionTypeInterface)) {
-    throw new \Exception('No entity_interaction plugin was found');
+function sapi_demo_entity_insert(EntityInterface $entity) {
+  if ($entity->getEntityTypeId() != 'sapi_data') {
+    try {
+    /** @var \Drupal\Component\Plugin\PluginManagerInterface $actionType */
+    $actionType = \Drupal::service('plugin.manager.sapi_action_type');
+    /** @var \Drupal\Core\Session\AccountProxy $currentUser */
+    $currentUser = \Drupal::service('current_user');
+    /** @var \Drupal\sapi\Dispatcher $sapiDispatcher */
+    $sapiDispatcher = \Drupal::service('sapi.dispatcher');
+    /** @var \Drupal\sapi\ActionTypeInterface $action */
+    $action = $actionType->createInstance('entity_interaction', ['account'=> $currentUser,'entity'=> $entity,'action'=>'Create','mode'=>'']);
+    if (!($action instanceof ActionTypeInterface)) {
+      drupal_set_message('not instance');
+    }
+    $sapiDispatcher->dispatch($action);
+    } catch (\Exception $e) {
+      watchdog_exception('sapi_demo', $e);
+    }
   }
-  $sapiDispatcher->dispatch($action);
 }
