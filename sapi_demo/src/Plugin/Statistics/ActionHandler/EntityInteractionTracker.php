@@ -106,7 +106,7 @@ class EntityInteractionTracker extends ActionHandlerBase implements ActionHandle
       'field_interaction_type' => $interaction_type,
       'field_user' => $user_id,
     ]);
-    /** Adding $entity_id and $entity_type to field_entity_reference field table columns. */
+    /** Adding $entity_id and $entity_type to field_entity_reference field values. */
     $sapiData->get('field_entity_reference')->setValue(['target_id'=>$entity_id, 'target_type'=>$entity_type]);
 
     if (!$sapiData->save()) {
