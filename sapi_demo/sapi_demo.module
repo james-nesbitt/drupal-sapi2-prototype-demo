@@ -1,0 +1,23 @@
+<?php
+
+use Drupal\Core\Entity\EntityInterface;
+
+/**
+ * Implements hook_entity_update()
+ *
+ * @param \Drupal\Core\Entity\EntityInterface $entity
+ */
+function sapi_demo_entity_update(EntityInterface $entity){
+  \Drupal::service('sapi_demo.entity_interaction_collector')->actionTypeTrigger($entity,'Update');
+}
+
+/**
+ * Implements hook_entity_insert()
+ *
+ * @param \Drupal\Core\Entity\EntityInterface $entity
+ */
+function sapi_demo_entity_insert(EntityInterface $entity) {
+  if ($entity->getEntityTypeId() != 'sapi_data') {
+    \Drupal::service('sapi_demo.entity_interaction_collector')->actionTypeTrigger($entity,'Create');
+  }
+}
