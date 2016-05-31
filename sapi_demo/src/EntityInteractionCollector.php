@@ -36,8 +36,9 @@ class EntityInteractionCollector {
    * @var \Drupal\sapi\ActionTypeManager
    */
   protected $sapiActionTypeManager;
+
   /**
-   * Constructor.
+   * EntityInteractionCollector constructor.
    */
   public function __construct(AccountProxy $currentUser, Dispatcher $sapiDispatcher, ActionTypeManager $sapiActionTypeManager) {
     $this->currentUser = $currentUser;
