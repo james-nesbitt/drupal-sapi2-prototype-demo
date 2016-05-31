@@ -9,3 +9,7 @@ services:
     arguments: ["@current_user", "@sapi.dispatcher", "@plugin.manager.sapi_action_type", "@current_route_match"]
     tags:
       - { name: event_subscriber }
+  sapi_demo.entity_interaction_collector:
+    class: Drupal\sapi_demo\EntityInteractionCollector
+    arguments: ["@current_user", "@sapi.dispatcher", "@plugin.manager.sapi_action_type"]
+

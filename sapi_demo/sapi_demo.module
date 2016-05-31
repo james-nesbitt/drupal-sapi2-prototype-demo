@@ -1,33 +1,6 @@
 <?php
 
 use Drupal\Core\Entity\EntityInterface;
-use Drupal\sapi\ActionTypeInterface;
-use Drupal\Core\Entity;
-
-/**
- * Initiates Drupal\sapi\ActionType plugin and hands it to dispatcher
- *
- * @param \Drupal\Core\Entity\EntityInterface $entity
- * @param string $operation Type of operation made on entity.
- */
-function actionTypeTrigger(EntityInterface $entity, $operation){
-  try {
-    /** @var \Drupal\Component\Plugin\PluginManagerInterface $actionType */
-    $actionType = \Drupal::service('plugin.manager.sapi_action_type');
-    /** @var \Drupal\Core\Session\AccountProxy $currentUser */
-    $currentUser = \Drupal::service('current_user');
-    /** @var \Drupal\sapi\Dispatcher $sapiDispatcher */
-    $sapiDispatcher = \Drupal::service('sapi.dispatcher');
-    /** @var \Drupal\sapi\ActionTypeInterface $action */
-    $action = $actionType->createInstance('entity_interaction', ['account'=> $currentUser,'entity'=> $entity,'action'=> $operation,'mode'=> '']);
-    if (!($action instanceof ActionTypeInterface)) {
-      throw new \Exception('No entity_interaction plugin was found');
-    }
-    $sapiDispatcher->dispatch($action);
-  } catch (\Exception $e) {
-    watchdog_exception('sapi_demo', $e);
-  }
-}
 
 /**
  * Implements hook_entity_update()
@@ -35,7 +8,7 @@ function actionTypeTrigger(EntityInterface $entity, $operation){
  * @param \Drupal\Core\Entity\EntityInterface $entity
  */
 function sapi_demo_entity_update(EntityInterface $entity){
-  actionTypeTrigger($entity, 'Update');
+  \Drupal::service('sapi_demo.entity_interaction_collector')->actionTypeTrigger($entity,'Update');
 }
 
 /**
@@ -45,6 +18,6 @@ function sapi_demo_entity_update(EntityInterface $entity){
  */
 function sapi_demo_entity_insert(EntityInterface $entity) {
   if ($entity->getEntityTypeId() != 'sapi_data') {
-    actionTypeTrigger($entity, 'Create');
+    \Drupal::service('sapi_demo.entity_interaction_collector')->actionTypeTrigger($entity,'Create');
   }
 }
