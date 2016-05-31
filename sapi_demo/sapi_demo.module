@@ -8,9 +8,9 @@ use Drupal\Core\Entity;
  * Initiates Drupal\sapi\ActionType plugin and hands it to dispatcher
  *
  * @param \Drupal\Core\Entity\EntityInterface $entity
- * @param string $action Type of action initiated.
+ * @param string $operation Type of operation made on entity.
  */
-function actionTypeTrigger(EntityInterface $entity, $action){
+function actionTypeTrigger(EntityInterface $entity, $operation){
   try {
     /** @var \Drupal\Component\Plugin\PluginManagerInterface $actionType */
     $actionType = \Drupal::service('plugin.manager.sapi_action_type');
@@ -19,7 +19,7 @@ function actionTypeTrigger(EntityInterface $entity, $action){
     /** @var \Drupal\sapi\Dispatcher $sapiDispatcher */
     $sapiDispatcher = \Drupal::service('sapi.dispatcher');
     /** @var \Drupal\sapi\ActionTypeInterface $action */
-    $action = $actionType->createInstance('entity_interaction', ['account'=> $currentUser,'entity'=> $entity,'action'=> 'Update','mode'=> '']);
+    $action = $actionType->createInstance('entity_interaction', ['account'=> $currentUser,'entity'=> $entity,'action'=> $operation,'mode'=> '']);
     if (!($action instanceof ActionTypeInterface)) {
       throw new \Exception('No entity_interaction plugin was found');
     }
