@@ -1,0 +1,30 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - block_content
+    - comment
+    - contact
+    - dynamic_entity_reference
+    - file
+    - menu_link_content
+    - node
+    - sapi_data
+    - shortcut
+    - taxonomy
+    - user
+    - sapi_demo
+id: sapi_data.field_entity_reference
+field_name: field_entity_reference
+entity_type: sapi_data
+type: dynamic_entity_reference
+settings:
+  exclude_entity_types: true
+  entity_type_ids: {  }
+module: dynamic_entity_reference
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

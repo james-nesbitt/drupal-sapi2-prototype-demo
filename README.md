@@ -13,6 +13,10 @@ $/> cd modules/custom
 $/> git clone git@github.com:james-nesbitt/drupal-sapi2-prototype-demo.git sapi_demo_modules
 ````
 
+# Enabling sapi_demo module
+
+To be able to enable sapi_demo module [dynamic_entity_reference](https://www.drupal.org/project/dynamic_entity_reference) must be enabled.
+
 # Content generation
 
 

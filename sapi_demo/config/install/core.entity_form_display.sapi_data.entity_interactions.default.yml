@@ -2,31 +2,26 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.sapi_data.entity_interactions.field_entity_id
-    - field.field.sapi_data.entity_interactions.field_entity_type
+    - field.field.sapi_data.entity_interactions.field_entity_reference
     - field.field.sapi_data.entity_interactions.field_interaction_type
     - field.field.sapi_data.entity_interactions.field_user
     - sapi_data.sapi_data_type.entity_interactions
   module:
+    - dynamic_entity_reference
     - sapi_demo
 id: sapi_data.entity_interactions.default
 targetEntityType: sapi_data
 bundle: entity_interactions
 mode: default
 content:
-  field_entity_id:
-    weight: 13
+  field_entity_reference:
+    weight: 15
     settings:
+      match_operator: CONTAINS
+      size: 40
       placeholder: ''
     third_party_settings: {  }
-    type: number
-  field_entity_type:
-    weight: 11
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: string_textfield
+    type: dynamic_entity_reference_default
   field_interaction_type:
     weight: 14
     settings:

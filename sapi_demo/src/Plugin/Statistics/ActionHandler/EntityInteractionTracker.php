@@ -103,11 +103,11 @@ class EntityInteractionTracker extends ActionHandlerBase implements ActionHandle
     $sapiData = $sapiDataStorage->create([
       'type' => 'entity_interactions',
       'name' => $entity_type .':'. $entity_id .':'. $interaction_type,
-      'field_entity_type' => $entity_type,
-      'field_entity_id' => $entity_id,
       'field_interaction_type' => $interaction_type,
       'field_user' => $user_id,
     ]);
+    /** Adding $entity_id and $entity_type to field_entity_reference field table columns. */
+    $sapiData->get('field_entity_reference')->setValue(['target_id'=>$entity_id, 'target_type'=>$entity_type]);
 
     if (!$sapiData->save()) {
       \Drupal::logger('sapi')->warning('Could not create SAPI data');

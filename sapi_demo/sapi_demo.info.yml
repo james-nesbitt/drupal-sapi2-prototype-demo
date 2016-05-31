@@ -10,3 +10,4 @@ dependencies:
   - taxonomy
   - field
   - datetime
+  - dynamic_entity_reference
