@@ -103,9 +103,8 @@ class EntityInteractionTracker extends ActionHandlerBase implements ActionHandle
     $sapiData = $sapiDataStorage->create([
       'type' => 'entity_interactions',
       'name' => $entity_type .':'. $entity_id .':'. $interaction_type,
-      'field_entity_type' => $entity_type,
-      'field_entity_id' => $entity_id,
       'field_interaction_type' => $interaction_type,
+      'field_entity_reference' => ['target_id'=>$entity_id, 'target_type'=>$entity_type],
       'field_user' => $user_id,
     ]);
 

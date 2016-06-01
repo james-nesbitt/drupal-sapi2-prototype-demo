@@ -1,0 +1,115 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.sapi_data.field_entity_reference
+    - sapi_data.sapi_data_type.entity_interactions
+  module:
+    - dynamic_entity_reference
+    - sapi_demo
+id: sapi_data.entity_interactions.field_entity_reference
+field_name: field_entity_reference
+entity_type: sapi_data
+bundle: entity_interactions
+label: 'Entity Reference'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  comment:
+    handler: 'default:comment'
+    handler_settings:
+      target_bundles:
+        comment: comment
+      sort:
+        field: _none
+      auto_create: false
+      auto_create_bundle: ''
+  contact_message:
+    handler: 'default:contact_message'
+    handler_settings:
+      target_bundles:
+        personal: personal
+        feedback: feedback
+      sort:
+        field: _none
+      auto_create: false
+      auto_create_bundle: personal
+  node:
+    handler: 'default:node'
+    handler_settings:
+      target_bundles:
+        article: article
+        demo_article: demo_article
+        page: page
+      sort:
+        field: _none
+      auto_create: false
+      auto_create_bundle: demo_article
+  block_content:
+    handler: 'default:block_content'
+    handler_settings:
+      target_bundles:
+        basic: basic
+      sort:
+        field: _none
+      auto_create: false
+      auto_create_bundle: ''
+  menu_link_content:
+    handler: 'default:menu_link_content'
+    handler_settings:
+      target_bundles:
+        menu_link_content: menu_link_content
+      sort:
+        field: _none
+      auto_create: false
+      auto_create_bundle: ''
+  file:
+    handler: 'default:file'
+    handler_settings:
+      target_bundles: null
+      sort:
+        field: _none
+      auto_create: false
+  shortcut:
+    handler: 'default:shortcut'
+    handler_settings:
+      target_bundles:
+        default: default
+      sort:
+        field: _none
+      auto_create: false
+      auto_create_bundle: ''
+  sapi_data:
+    handler: 'default:sapi_data'
+    handler_settings:
+      target_bundles:
+        color_frequency: color_frequency
+        entity_interactions: entity_interactions
+      sort:
+        field: _none
+      auto_create: false
+      auto_create_bundle: color_frequency
+  taxonomy_term:
+    handler: 'default:taxonomy_term'
+    handler_settings:
+      target_bundles:
+        demo_colors: demo_colors
+        tags: tags
+      sort:
+        field: _none
+      auto_create: false
+      auto_create_bundle: demo_colors
+  user:
+    handler: 'default:user'
+    handler_settings:
+      include_anonymous: true
+      filter:
+        type: _none
+      target_bundles: null
+      sort:
+        field: _none
+      auto_create: false
+field_type: dynamic_entity_reference
