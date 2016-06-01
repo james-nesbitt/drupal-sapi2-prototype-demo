@@ -118,12 +118,10 @@ class ArticleColorTracker extends ActionHandlerBase implements ActionHandlerInte
      * @var int $color
      *   term tid for the colour that we will track
      */
-    if(isset($currentNode->get('field_colors')[0])) {
-      $color = $currentNode->get('field_colors')[0]->getValue()['target_id'];
-    }
-    else {
+    if($currentNode->get('field_colors')->isEmpty()) {
       return;
     }
+    $color = $currentNode->get('field_colors')[0]->getValue()['target_id'];
 
     /**
      * @var int $account
