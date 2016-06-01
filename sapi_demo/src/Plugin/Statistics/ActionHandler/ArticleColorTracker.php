@@ -114,6 +114,11 @@ class ArticleColorTracker extends ActionHandlerBase implements ActionHandlerInte
       return;
     }
 
+    /** Checks if field_colors has value */
+    if($currentNode->get('field_colors')->isEmpty()) {
+      return;
+    }
+
     /**
      * @var int $color
      *   term tid for the colour that we will track
