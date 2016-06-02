@@ -1,0 +1,23 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.hottest_users
+  module:
+    - views
+  theme:
+    - bartik
+id: views_block__hottest_users_biggest_contrib_users_block
+theme: bartik
+region: sidebar_second
+weight: -8
+provider: null
+plugin: 'views_block:hottest_users-biggest_contrib_users_block'
+settings:
+  id: 'views_block:hottest_users-biggest_contrib_users_block'
+  label: ''
+  provider: views
+  label_display: visible
+  views_label: ''
+  items_per_page: none
+visibility: {  }
