@@ -7,14 +7,14 @@ dependencies:
     - views
   theme:
     - bartik
-id: views_block__most_viewed_articles_last_week_block
+id: views_block__most_viewed_articles_most_viewed_articles_block
 theme: bartik
 region: sidebar_second
-weight: -7
+weight: -8
 provider: null
-plugin: 'views_block:most_viewed_articles-most_viewed_articles_last_week_block'
+plugin: 'views_block:most_viewed_articles-most_viewed_articles_block'
 settings:
-  id: 'views_block:most_viewed_articles-most_viewed_articles_last_week_block'
+  id: 'views_block:most_viewed_articles-most_viewed_articles_block'
   label: ''
   provider: views
   label_display: visible

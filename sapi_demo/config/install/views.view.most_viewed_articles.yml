@@ -1,19 +1,17 @@
 langcode: en
 status: true
 dependencies:
-  config:
-    - node.type.article
-    - sapi_data.sapi_data_type.entity_interactions
   module:
     - node
     - sapi_data
+    - user
 id: most_viewed_articles
 label: 'Most viewed articles'
 module: views
 description: 'List of the most viewed node-articles for last week (the last seven days)'
 tag: ''
-base_table: sapi_data
-base_field: id
+base_table: node_field_data
+base_field: nid
 core: 8.x
 display:
   default:
@@ -23,8 +21,9 @@ display:
     position: 0
     display_options:
       access:
-        type: none
-        options: {  }
+        type: perm
+        options:
+          perm: 'access content'
       cache:
         type: tag
         options: {  }
@@ -53,14 +52,6 @@ display:
           offset: 0
       style:
         type: default
-        options:
-          grouping:
-            -
-              field: view_node
-              rendered: true
-              rendered_strip: false
-          row_class: ''
-          default_row_class: true
       row:
         type: fields
       fields:
@@ -68,14 +59,17 @@ display:
           id: title
           table: node_field_data
           field: title
-          relationship: node__field_entity_reference
+          settings:
+            link_to_entity: true
+          plugin_id: field
+          relationship: none
           group_type: group
           admin_label: ''
           label: ''
           exclude: false
           alter:
             alter_text: false
-            text: '{{ title }} Viewed: {{ nid }} times'
+            text: ''
             make_link: false
             path: ''
             absolute: false
@@ -104,7 +98,7 @@ display:
           element_class: ''
           element_label_type: ''
           element_label_class: ''
-          element_label_colon: false
+          element_label_colon: true
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
@@ -114,8 +108,6 @@ display:
           hide_alter_empty: true
           click_sort_column: value
           type: string
-          settings:
-            link_to_entity: true
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -126,21 +118,18 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          entity_type: node
-          entity_field: title
-          plugin_id: field
         nid:
           id: nid
           table: node_field_data
           field: nid
-          relationship: node__field_entity_reference
+          relationship: none
           group_type: count
           admin_label: ''
           label: ''
           exclude: false
           alter:
             alter_text: true
-            text: 'Viewed: {{ nid }} times.'
+            text: 'Viewed: {{ nid }} times in last 7 days.'
             make_link: false
             path: ''
             absolute: false
@@ -187,12 +176,10 @@ display:
           suffix: ''
           click_sort_column: value
           type: number_integer
-          settings:
-            thousand_separator: ''
-            prefix_suffix: true
+          settings: {  }
           group_column: entity_id
           group_columns:
-            value: value
+            entity_id: entity_id
           group_rows: true
           delta_limit: 0
           delta_offset: 0
@@ -204,56 +191,22 @@ display:
           entity_field: nid
           plugin_id: field
       filters:
-        type:
-          id: type
-          table: sapi_data
-          field: type
-          value:
-            entity_interactions: entity_interactions
-          entity_type: sapi_data
-          entity_field: type
-          plugin_id: bundle
-        field_interaction_type_value:
-          id: field_interaction_type_value
-          table: sapi_data__field_interaction_type
-          field: field_interaction_type_value
-          relationship: none
-          group_type: group
-          admin_label: ''
-          operator: '='
-          value: View
-          group: 1
-          exposed: false
+        status:
+          value: true
+          table: node_field_data
+          field: status
+          plugin_id: boolean
+          entity_type: node
+          entity_field: status
+          id: status
           expose:
-            operator_id: ''
-            label: ''
-            description: ''
-            use_operator: false
             operator: ''
-            identifier: ''
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          plugin_id: string
+          group: 1
         created:
           id: created
           table: sapi_data
           field: created
-          relationship: none
+          relationship: reverse__sapi_data__field_entity_reference
           group_type: group
           admin_label: ''
           operator: '>'
@@ -291,52 +244,12 @@ display:
           entity_type: sapi_data
           entity_field: created
           plugin_id: date
-        type_1:
-          id: type_1
-          table: node_field_data
-          field: type
-          relationship: node__field_entity_reference
-          group_type: group
-          admin_label: ''
-          operator: in
-          value:
-            article: article
-          group: 1
-          exposed: false
-          expose:
-            operator_id: ''
-            label: ''
-            description: ''
-            use_operator: false
-            operator: ''
-            identifier: ''
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-            reduce: false
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          entity_type: node
-          entity_field: type
-          plugin_id: bundle
       sorts:
         nid:
           id: nid
           table: node_field_data
           field: nid
-          relationship: node__field_entity_reference
+          relationship: none
           group_type: count
           admin_label: ''
           order: DESC
@@ -346,44 +259,47 @@ display:
           entity_type: node
           entity_field: nid
           plugin_id: standard
-      title: 'Most viewed articles'
+      title: 'Most viewed article'
       header: {  }
       footer: {  }
       empty: {  }
       relationships:
-        node__field_entity_reference:
-          id: node__field_entity_reference
-          table: sapi_data__field_entity_reference
-          field: node__field_entity_reference
+        reverse__sapi_data__field_entity_reference:
+          id: reverse__sapi_data__field_entity_reference
+          table: node_field_data
+          field: reverse__sapi_data__field_entity_reference
           relationship: none
           group_type: group
-          admin_label: 'field_entity_reference: Content'
-          required: true
-          plugin_id: standard
+          admin_label: field_entity_reference
+          required: false
+          entity_type: node
+          plugin_id: entity_reverse
       arguments: {  }
       display_extenders: {  }
       group_by: true
-      link_url: ''
-      link_display: '0'
     cache_metadata:
       max-age: -1
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
+        - 'user.node_grants:view'
+        - user.permissions
       tags: {  }
-  most_viewed_articles_last_week_block:
+  most_viewed_articles_block:
     display_plugin: block
-    id: most_viewed_articles_last_week_block
+    id: most_viewed_articles_block
     display_title: 'Most viewed articles block'
     position: 1
     display_options:
       display_extenders: {  }
-      display_description: 'Most viewed articles for last 7 days.'
       block_description: 'Most viewed articles (last week)'
+      display_description: 'Most viewed articles for last 7 days.'
       block_hide_empty: true
     cache_metadata:
       max-age: -1
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
+        - 'user.node_grants:view'
+        - user.permissions
       tags: {  }
