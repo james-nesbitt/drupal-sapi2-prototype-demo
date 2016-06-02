@@ -394,10 +394,10 @@ display:
         - user.roles
       tags:
         - 'config:field.storage.sapi_data.field_entity_reference'
-  page_1:
+  entity_view_count_list:
     display_plugin: page
-    id: page_1
-    display_title: Page
+    id: entity_view_count_list
+    display_title: 'Entity view count list'
     position: 1
     display_options:
       display_extenders: {  }
@@ -416,6 +416,7 @@ display:
         title: ''
         description: ''
         weight: 0
+      display_description: ''
     cache_metadata:
       max-age: 0
       contexts:
