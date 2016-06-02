@@ -338,7 +338,9 @@ display:
       arguments: {  }
       defaults:
         arguments: false
+        title: false
       block_hide_empty: true
+      title: 'Top 5 contributers'
     cache_metadata:
       max-age: -1
       contexts:
