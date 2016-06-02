@@ -745,9 +745,17 @@ display:
           description: ''
           columns:
             name: name
+            mail: mail
             uid: uid
           info:
             name:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            mail:
               sortable: true
               default_sort_order: asc
               align: ''
