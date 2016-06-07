@@ -8,6 +8,7 @@ use Drupal\Core\Session\AccountProxy;
 use Drupal\sapi\Dispatcher;
 use Drupal\sapi\ActionTypeManager;
 use Symfony\Component\HttpKernel\KernelEvents;
+use Drupal\sapi_journey\JourneySessionHandler;
 
 /**
  * Class JourneyStepSubscriber.
@@ -15,6 +16,13 @@ use Symfony\Component\HttpKernel\KernelEvents;
  * @package Drupal\sapi_journey
  */
 class JourneyStepSubscriber implements EventSubscriberInterface {
+
+  /**
+   * Drupal\sapi_journey\JourneySessionHandler definition.
+   *
+   * @var \Drupal\sapi_journey\JourneySessionHandler $journeySession
+   */
+  protected $journeySession;
 
   /**
    * Drupal\Core\Session\AccountProxy definition.
@@ -40,11 +48,13 @@ class JourneyStepSubscriber implements EventSubscriberInterface {
   /**
    * JourneyStepSubscriber constructor.
    *
+	 * @param \Drupal\sapi_journey\JourneySessionHandler $journeySession
    * @param \Drupal\Core\Session\AccountProxy $currentUser
    * @param \Drupal\sapi\Dispatcher $sapiDispatcher
    * @param \Drupal\Component\Plugin\PluginManagerInterface $SAPIActionTypeManager
    */
-  public function __construct(AccountProxy $currentUser, Dispatcher $sapiDispatcher, ActionTypeManager $sapiActionTypeManager) {
+  public function __construct(JourneySessionHandler $journeySession,AccountProxy $currentUser, Dispatcher $sapiDispatcher, ActionTypeManager $sapiActionTypeManager) {
+    $this->journeySession = $journeySession;
     $this->currentUser = $currentUser;
     $this->sapiDispatcher = $sapiDispatcher;
     $this->sapiActionTypeManager = $sapiActionTypeManager;
@@ -59,7 +69,7 @@ class JourneyStepSubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * This method is called whenever the kernel.view event is
+   * This method is called whenever the KernelEvents::VIEW event is
    * dispatched.
    *
    * @param \Symfony\Component\HttpKernel\Event\KernelEvent $event
@@ -73,10 +83,9 @@ class JourneyStepSubscriber implements EventSubscriberInterface {
       $sessionId = $this->journeySession->getSessionId();
       /** @var string $uri */
       $uri = $event->getRequest()->getRequestUri();
-//      drupal_set_message($uri, 'status', TRUE);
       $action = $this->sapiActionTypeManager->createInstance('user_journey', ['account'=> $this->currentUser,'uri'=> $uri,'sessionId'=> $sessionId]);
       if (!($action instanceof ActionTypeInterface)) {
-        throw new \Exception('No user_journey plugin was found');
+       throw new \Exception('No user_journey plugin was found');
       }
       $this->sapiDispatcher->dispatch($action);
     } catch (\Exception $e) {
