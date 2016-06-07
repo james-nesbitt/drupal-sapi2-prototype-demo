@@ -21,3 +21,7 @@ function sapi_demo_entity_insert(EntityInterface $entity) {
     \Drupal::service('sapi_demo.entity_interaction_collector')->actionTypeTrigger($entity,'Create');
   }
 }
+
+function sapi_demo_page_attachments_alter(array &$page) {
+  $page['#attached']['library'][] = 'sapi_demo/sapi_demo';
+}

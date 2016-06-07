@@ -1,0 +1,7 @@
+sapi_demo:
+  js:
+    js/sapi_demo.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings
