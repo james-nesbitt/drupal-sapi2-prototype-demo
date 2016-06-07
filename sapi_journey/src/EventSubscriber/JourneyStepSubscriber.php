@@ -9,6 +9,7 @@ use Drupal\sapi\Dispatcher;
 use Drupal\sapi\ActionTypeManager;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Drupal\sapi_journey\JourneySessionHandler;
+use Drupal\sapi\ActionTypeInterface;
 
 /**
  * Class JourneyStepSubscriber.
@@ -48,7 +49,7 @@ class JourneyStepSubscriber implements EventSubscriberInterface {
   /**
    * JourneyStepSubscriber constructor.
    *
-	 * @param \Drupal\sapi_journey\JourneySessionHandler $journeySession
+   * @param \Drupal\sapi_journey\JourneySessionHandler $journeySession
    * @param \Drupal\Core\Session\AccountProxy $currentUser
    * @param \Drupal\sapi\Dispatcher $sapiDispatcher
    * @param \Drupal\Component\Plugin\PluginManagerInterface $SAPIActionTypeManager
@@ -64,12 +65,12 @@ class JourneyStepSubscriber implements EventSubscriberInterface {
    * {@inheritdoc}
    */
   static function getSubscribedEvents() {
-    $events[KernelEvents::VIEW][] = ['onJourneyStep',1];
+    $events[KernelEvents::REQUEST][] = ['onJourneyStep',1];
     return $events;
   }
 
   /**
-   * This method is called whenever the KernelEvents::VIEW event is
+   * This method is called whenever the KernelEvents::REQUEST event is
    * dispatched.
    *
    * @param \Symfony\Component\HttpKernel\Event\KernelEvent $event
@@ -83,6 +84,7 @@ class JourneyStepSubscriber implements EventSubscriberInterface {
       $sessionId = $this->journeySession->getSessionId();
       /** @var string $uri */
       $uri = $event->getRequest()->getRequestUri();
+      /** @var \Drupal\sapi\ActionTypeInterface $action */
       $action = $this->sapiActionTypeManager->createInstance('user_journey', ['account'=> $this->currentUser,'uri'=> $uri,'sessionId'=> $sessionId]);
       if (!($action instanceof ActionTypeInterface)) {
        throw new \Exception('No user_journey plugin was found');

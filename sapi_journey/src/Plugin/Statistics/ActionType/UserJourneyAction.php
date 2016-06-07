@@ -71,7 +71,7 @@ class UserJourneyAction extends ActionTypeBase {
     // save the URI
     $this->uri = $configuration['uri'];
     // and the entity action
-    $this->sessionId = $configuration['sessionID'];
+    $this->sessionId = $configuration['sessionId'];
   }
 
   /**
