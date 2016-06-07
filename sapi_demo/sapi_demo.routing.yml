@@ -1,0 +1,8 @@
+
+sapi_demo.entity_interaction_controller_action:
+  path: 'sapi/js/interaction/{action}'
+  defaults:
+    _controller: '\Drupal\sapi_demo\Controller\EntityInteractionController::action'
+    _title: 'action'
+  requirements:
+    _permission: 'access content'
