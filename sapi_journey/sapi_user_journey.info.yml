@@ -1,4 +1,4 @@
-name: SAPI Journey
+name: SAPI User Journey
 type: module
 description: SAPI Journey is extension of SAPI module and provides tracking throughout users time spent on the site.
 core: 8.x
