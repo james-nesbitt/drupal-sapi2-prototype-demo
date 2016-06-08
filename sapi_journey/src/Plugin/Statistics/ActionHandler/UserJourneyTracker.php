@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\sapi_journey\Plugin\Statistics\ActionHandler;
+namespace Drupal\sapi_user_journey\Plugin\Statistics\ActionHandler;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
@@ -10,7 +10,7 @@ use Drupal\Core\Session\AccountProxyInterface;
 use Drupal\sapi\ActionHandlerInterface;
 use Drupal\sapi\ActionHandlerBase;
 use Drupal\sapi\ActionTypeInterface;
-use Drupal\sapi_journey\Plugin\Statistics\ActionType\UserJourneyAction;
+use Drupal\sapi_user_journey\Plugin\Statistics\ActionType\UserJourneyAction;
 
 /**
  * This is a SAPI handler plugin is used to track user steps, throughout site,
@@ -115,41 +115,25 @@ class UserJourneyTracker extends ActionHandlerBase implements ActionHandlerInter
       ->execute();
 
     if (count($results)>0) {
+      /** @var int $next_step Order number of step in user's journey. */
       $next_step = count($results) + 1;
-
-      /** @var \Drupal\sapi_data\SAPIDataInterface $sapiData */
-      $sapiData = $sapiDataStorage->create([
-        'type' => 'user_journey',
-        'name' => $sessionId,
-        'field_session_id' => $sessionId,
-        'field_user' => $account,
-        'field_uri' => $URI,
-        'field_step' => $next_step
-      ]);
-
-      if (!$sapiData->save()) {
-        \Drupal::logger('sapi')->warning('Could not create SAPI data');
-      }
-
-    }
-    else {
-      /** Creating a new journey entity with default value for step number  */
-
-      /** @var \Drupal\sapi_data\SAPIDataInterface $sapiData */
-      $sapiData = $sapiDataStorage->create([
-        'type' => 'user_journey',
-        'name' => $sessionId,
-        'field_session_id' => $sessionId,
-        'field_user' => $account,
-        'field_uri' => $URI,
-        'field_step' => 1
-      ]);
-
-      if (!$sapiData->save()) {
-        \Drupal::logger('sapi')->warning('Could not create SAPI data');
-      }
+    } else {
+      $next_step = 1;
     }
 
+    /** @var \Drupal\sapi_data\SAPIDataInterface $sapiData */
+    $sapiData = $sapiDataStorage->create([
+      'type' => 'user_journey',
+      'name' => $sessionId,
+      'field_session_id' => $sessionId,
+      'field_user' => $account,
+      'field_uri' => $URI,
+      'field_step' => $next_step
+    ]);
+
+    if (!$sapiData->save()) {
+      \Drupal::logger('sapi')->warning('Could not create SAPI data');
+    }
   }
 
 }

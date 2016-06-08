@@ -1,5 +1,5 @@
 <?php
-namespace Drupal\sapi_journey\Plugin\Statistics\ActionType;
+namespace Drupal\sapi_user_journey\Plugin\Statistics\ActionType;
 
 use Drupal\Core\Session\AccountProxyInterface;
 use Drupal\sapi\ActionTypeBase;

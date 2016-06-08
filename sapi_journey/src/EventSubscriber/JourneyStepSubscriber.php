@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\sapi_journey\EventSubscriber;
+namespace Drupal\sapi_user_journey\EventSubscriber;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\EventDispatcher\Event;
@@ -8,13 +8,13 @@ use Drupal\Core\Session\AccountProxy;
 use Drupal\sapi\Dispatcher;
 use Drupal\sapi\ActionTypeManager;
 use Symfony\Component\HttpKernel\KernelEvents;
-use Drupal\sapi_journey\JourneySessionHandler;
+use Drupal\sapi_user_journey\JourneySessionHandler;
 use Drupal\sapi\ActionTypeInterface;
 
 /**
  * Class JourneyStepSubscriber.
  *
- * @package Drupal\sapi_journey
+ * @package Drupal\sapi_user_journey
  */
 class JourneyStepSubscriber implements EventSubscriberInterface {
 
@@ -22,7 +22,7 @@ class JourneyStepSubscriber implements EventSubscriberInterface {
    * JourneySessionHandler object that provides methods for dealing with
    * sessions in "journey" context.
    *
-   * @var \Drupal\sapi_journey\JourneySessionHandler $journeySession
+   * @var \Drupal\sapi_user_journey\JourneySessionHandler $journeySession
    */
   protected $journeySession;
 
@@ -51,7 +51,7 @@ class JourneyStepSubscriber implements EventSubscriberInterface {
   /**
    * JourneyStepSubscriber constructor.
    *
-   * @param \Drupal\sapi_journey\JourneySessionHandler $journeySession
+   * @param \Drupal\sapi_user_journey\JourneySessionHandler $journeySession
    * @param \Drupal\Core\Session\AccountProxy $currentUser
    * @param \Drupal\sapi\Dispatcher $sapiDispatcher
    * @param \Drupal\Component\Plugin\PluginManagerInterface $SAPIActionTypeManager
@@ -93,7 +93,7 @@ class JourneyStepSubscriber implements EventSubscriberInterface {
       }
       $this->sapiDispatcher->dispatch($action);
     } catch (\Exception $e) {
-      watchdog_exception('sapi_journey', $e);
+      watchdog_exception('sapi_user_journey', $e);
     }
   }
 

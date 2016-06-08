@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\sapi_journey;
+namespace Drupal\sapi_user_journey;
 
 use Drupal\Core\Session\SessionManager;
 use Drupal\Component\Utility\Crypt;
@@ -8,7 +8,7 @@ use Drupal\Component\Utility\Crypt;
 /**
  * Class JourneySessionHandler.
  *
- * @package Drupal\sapi_journey
+ * @package Drupal\sapi_user_journey
  */
 class JourneySessionHandler {
 

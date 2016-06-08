@@ -4,7 +4,7 @@ dependencies:
   module:
     - sapi_data
     - user
-    - sapi_journey
+    - sapi_user_journey
 id: sapi_data.field_user
 field_name: field_user
 entity_type: sapi_data
