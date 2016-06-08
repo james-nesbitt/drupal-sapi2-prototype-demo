@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.sapi_data.field_uri
+    - sapi_data.sapi_data_type.user_journey
+id: sapi_data.user_journey.field_uri
+field_name: field_uri
+entity_type: sapi_data
+bundle: user_journey
+label: URI
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

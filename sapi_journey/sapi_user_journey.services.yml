@@ -1,0 +1,10 @@
+services:
+  sapi_user_journey.step_subscriber:
+    class: Drupal\sapi_user_journey\EventSubscriber\JourneyStepSubscriber
+    arguments: ["@sapi_user_journey.session_handler", "@current_user", "@sapi.dispatcher", "@plugin.manager.sapi_action_type"]
+    tags:
+      - { name: event_subscriber }
+  sapi_user_journey.session_handler:
+    class: Drupal\sapi_user_journey\JourneySessionHandler
+    arguments: ["@session_manager"]
+

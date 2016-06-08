@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.sapi_data.field_step
+    - sapi_data.sapi_data_type.user_journey
+id: sapi_data.user_journey.field_step
+field_name: field_step
+entity_type: sapi_data
+bundle: user_journey
+label: Step
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: 1
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

@@ -1,0 +1,14 @@
+{
+  "name": "drupal/sapi_user_journey",
+  "type": "drupal-module",
+  "description": "SAPI Journey is extension of SAPI module and provides tracking throughout users time spent on the site.",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0+",
+  "homepage": "https://www.drupal.org/project/sapi_user_journey",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "http://drupal.org/project/issues/sapi_user_journey",
+    "source": "http://cgit.drupalcode.org/sapi_user_journey"
+  },
+  "require": { }
+}
