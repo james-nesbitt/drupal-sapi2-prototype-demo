@@ -1,7 +1,6 @@
 <?php
 namespace Drupal\sapi_journey\Plugin\Statistics\ActionType;
 
-use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Session\AccountProxyInterface;
 use Drupal\sapi\ActionTypeBase;
 use Drupal\sapi\Exception\MissingPluginConfiguration;
@@ -12,7 +11,7 @@ use Drupal\sapi\Exception\MissingPluginConfiguration;
  *  label = "User viewed sites section"
  * )
  *
- * This actiontype holds information about an account interaction with site,
+ * This action type holds information about an account interaction with site,
  * and keeps the URI, the account, and a string session ID value,
  * which can be retrieved by any handler.
  *
@@ -32,18 +31,16 @@ class UserJourneyAction extends ActionTypeBase {
   protected $account;
 
   /**
-   * The action taken on the entity
+   * The URI of current "step" in journey
    *
-   * @protected string $action
+   * @protected string $uri
    */
   protected $uri;
 
   /**
-   * Optionally an action mode
+   * The journey Id(journey_id) that is kept in session.
    *
-   * For example: a view mode if that action if view or a form view mode
-   *
-   * @protected string $mode
+   * @protected string $sessionId
    */
   protected $sessionId;
 
@@ -66,11 +63,8 @@ class UserJourneyAction extends ActionTypeBase {
       throw new MissingPluginConfiguration('Expected string session ID in plugin generation.  None provided.');
     }
 
-    // save the account
     $this->account = $configuration['account'];
-    // save the URI
     $this->uri = $configuration['uri'];
-    // and the entity action
     $this->sessionId = $configuration['sessionId'];
   }
 
@@ -82,7 +76,7 @@ class UserJourneyAction extends ActionTypeBase {
   }
 
   /**
-   * Get the account who viewed page
+   * Get the account who made a step.
    *
    * @return \Drupal\Core\Session\AccountProxyInterface|null
    */
@@ -91,18 +85,18 @@ class UserJourneyAction extends ActionTypeBase {
   }
 
   /**
-   * Get the session Id from current session.
+   * Get the journey Id(journey_id) that is kept in session.
    *
-   * @return string sessionID
+   * @return string $sessionId
    */
   function getSessionId() {
     return $this->sessionId;
   }
 
   /**
-   * Get the URI of current "step" in journey
+   * Get the URI of current "step" in journey.
    *
-   * @return string URI
+   * @return string $URI
    */
   function getURI() {
     return $this->uri;

@@ -6,5 +6,5 @@ services:
       - { name: event_subscriber }
   sapi_journey.session_handler:
     class: Drupal\sapi_journey\JourneySessionHandler
-    arguments: ["@user.private_tempstore", "@session_manager"]
+    arguments: ["@session_manager"]
 

@@ -15,13 +15,12 @@ bundle: user_journey
 mode: default
 content:
   field_session_id:
-    weight: 1
+    weight: 5
     label: above
     settings:
-      thousand_separator: ''
-      prefix_suffix: true
+      link_to_entity: false
     third_party_settings: {  }
-    type: number_integer
+    type: string
   field_step:
     weight: 3
     label: above

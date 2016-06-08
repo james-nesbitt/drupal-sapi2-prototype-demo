@@ -26,7 +26,7 @@ use Drupal\sapi_journey\Plugin\Statistics\ActionType\UserJourneyAction;
 class UserJourneyTracker extends ActionHandlerBase implements ActionHandlerInterface, ContainerFactoryPluginInterface {
 
   /**
-   * EntityTypeManager used to get entity storage for sapi_data items, which is
+   * EntityTypeManager is used to get entity storage for sapi_data items, which is
    * used to create and edit sapi_data items from tracking.
    *
    * @protected Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
@@ -77,20 +77,23 @@ class UserJourneyTracker extends ActionHandlerBase implements ActionHandlerInter
     }
 
     /**
+		 * The uid for the user that we are tracking.
+		 *
      * @var int $account
-     *   the uid for the user that we will track
      */
     $account = $this->currentUser->id();
 
     /**
+		 * URI of event.
+		 *
      * @var string $entity_type
-     *   Entity type ID
      */
     $URI = $action->getURI();
 
     /**
+		 * ID of journey kept in session.
+		 *
      * @var string $sessionId
-     *   ID of Session
      */
     $sessionId = $action->getSessionId();
 

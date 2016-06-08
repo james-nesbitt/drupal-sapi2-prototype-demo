@@ -13,11 +13,12 @@ bundle: user_journey
 mode: default
 content:
   field_session_id:
-    weight: 11
+    weight: 15
     settings:
+      size: 60
       placeholder: ''
     third_party_settings: {  }
-    type: number
+    type: string_textfield
   field_step:
     weight: 13
     settings:
