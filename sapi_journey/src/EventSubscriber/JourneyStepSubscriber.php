@@ -19,28 +19,30 @@ use Drupal\sapi\ActionTypeInterface;
 class JourneyStepSubscriber implements EventSubscriberInterface {
 
   /**
-   * Drupal\sapi_journey\JourneySessionHandler definition.
+   * JourneySessionHandler object that provides methods for dealing with
+   * sessions in "journey" context.
    *
    * @var \Drupal\sapi_journey\JourneySessionHandler $journeySession
    */
   protected $journeySession;
 
   /**
-   * Drupal\Core\Session\AccountProxy definition.
+   * Current user AccountProxy object.
    *
    * @var \Drupal\Core\Session\AccountProxy
    */
   protected $currentUser;
 
   /**
-   * Drupal\sapi\Dispatcher definition.
+   * The Statistics API dispatcher.
    *
    * @var \Drupal\sapi\Dispatcher $sapiDispatcher
    */
   protected $sapiDispatcher;
 
   /**
-   * Drupal\sapi\ActionTypeManager definition.
+   * The statistics action type plugin manager which will be used to create sapi
+   * items to be passed to the dispatcher
    *
    * @var \Drupal\sapi\ActionTypeManager $sapiActionTypeManager
    */

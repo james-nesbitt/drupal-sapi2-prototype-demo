@@ -77,22 +77,22 @@ class UserJourneyTracker extends ActionHandlerBase implements ActionHandlerInter
     }
 
     /**
-		 * The uid for the user that we are tracking.
-		 *
+     * The uid for the user that we are tracking.
+     *
      * @var int $account
      */
     $account = $this->currentUser->id();
 
     /**
-		 * URI of event.
-		 *
+     * URI of event.
+     *
      * @var string $entity_type
      */
     $URI = $action->getURI();
 
     /**
-		 * ID of journey kept in session.
-		 *
+     * ID of journey kept in session.
+     *
      * @var string $sessionId
      */
     $sessionId = $action->getSessionId();

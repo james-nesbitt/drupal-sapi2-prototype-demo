@@ -13,7 +13,7 @@ use Drupal\Component\Utility\Crypt;
 class JourneySessionHandler {
 
   /**
-   * Drupal\Core\Session\SessionManager definition.
+   * SessionManager object manages user sessions.
    *
    * @var \Drupal\Core\Session\SessionManager
    */
