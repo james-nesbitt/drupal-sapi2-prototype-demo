@@ -114,12 +114,8 @@ class UserJourneyTracker extends ActionHandlerBase implements ActionHandlerInter
       ->condition('field_session_id', $sessionId)
       ->execute();
 
-    if (count($results)>0) {
-      /** @var int $next_step Order number of step in user's journey. */
-      $next_step = count($results) + 1;
-    } else {
-      $next_step = 1;
-    }
+    /** @var int $next_step Order number of step in user's journey. */
+    $next_step = (count($results)>0 ? count($results) + 1 : 1);
 
     /** @var \Drupal\sapi_data\SAPIDataInterface $sapiData */
     $sapiData = $sapiDataStorage->create([
